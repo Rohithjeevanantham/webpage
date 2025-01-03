@@ -1,0 +1,100 @@
+/* Global Styles */
+body {
+    background-color: #000;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Custom Animations */
+.gradient-text {
+    background: linear-gradient(120deg, #fff, #666);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% auto;
+    animation: gradient 3s linear infinite;
+}
+
+@keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Navigation */
+.nav-link {
+    position: relative;
+    color: #fff;
+    transition: all 0.3s ease;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background-color: #fff;
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* Buttons */
+.btn-primary {
+    background: linear-gradient(90deg, #fff, #666);
+    color: #000;
+    padding: 1rem 2rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(255,255,255,0.1);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: #fff;
+    padding: 1rem 2rem;
+    border: 2px solid #fff;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background: #fff;
+    color: #000;
+    transform: translateY(-2px);
+}
+
+/* Scroll Animations */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Project Cards */
+.project-card {
+    background: linear-gradient(145deg, #1a1a1a, #0a0a0a);
+    border: 1px solid #333;
+    transition: all 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(255,255,255,0.1);
+}
