@@ -36,6 +36,7 @@ body {
 }
 
 /* Loading Screen */
+/* Loading Screen */
 .loading-screen {
     position: fixed;
     inset: 0;
@@ -44,6 +45,7 @@ body {
     justify-content: center;
     align-items: center;
     z-index: 9999;
+    transition: opacity 1s ease;
 }
 
 .loading-animation {
@@ -55,6 +57,7 @@ body {
     font-weight: bold;
     margin-bottom: 1rem;
     display: block;
+    color: var(--primary-color);
 }
 
 .loading-bar {
@@ -63,25 +66,25 @@ body {
     background-color: #222;
     position: relative;
     overflow: hidden;
+    margin: 0 auto;
 }
 
 .loading-bar::after {
     content: '';
     position: absolute;
-    left: 0;
+    left: -100%;
     top: 0;
     height: 100%;
-    width: 0;
+    width: 100%;
     background-color: var(--primary-color);
     animation: loading 2s ease infinite;
 }
 
 @keyframes loading {
-    0% { width: 0; }
-    50% { width: 100%; }
-    100% { width: 0; left: 100%; }
+    0% { left: -100%; }
+    50% { left: 100%; }
+    100% { left: 100%; }
 }
-
 /* Navigation */
 .nav-link {
     position: relative;
