@@ -1,112 +1,203 @@
-// Navbar Scroll Effect
-const navbar = document.getElementById('navbar');
-let lastScroll = 0;
+// Initialize GSAP
+gsap.registerPlugin(ScrollTrigger);
 
-window.addEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset;
-    
-    if (currentScroll <= 0) {
-        navbar.classList.remove('bg-black');
-        navbar.classList.remove('shadow-lg');
+// Custom Cursor
+const cursor = {
+    dot: document.querySelector('.cursor-dot'),
+    outline: document.querySelector('.cursor-outline'),
+    init: function() {
+        document.addEventListener('mousemove', (e) => {
+            gsap.to(this.dot, {
+                x: e.clientX,
+                y: e.clientY,
+                duration: 0.1
+            });
+            gsap.to(this.outline, {
+                x: e.clientX - 16,
+                y: e.clientY - 16,
+                duration: 0.3
+            });
+        });
+
+        // Hover effects
+        const links = document.querySelectorAll('a, button');
+        links.forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                gsap.to(this.outline, {
+                    scale: 1.5,
+                    duration: 0.3
+                });
+            });
+            link.addEventListener('mouseleave', () => {
+                gsap.to(this.outline, {
+                    scale: 1,
+                    duration: 0.3
+                });
+            });
+        });
     }
-    
-    if (currentScroll > lastScroll && currentScroll > 100) {
-        navbar.classList.add('bg-black');
-        navbar.classList.add('shadow-lg');
-    }
-    
-    lastScroll = currentScroll;
-});
+};
 
-// Mobile Menu Toggle
-const menuToggle = document.getElementById('menu-toggle');
-const mobileMenu = document.getElementById('mobile-menu');
-
-menuToggle.addEventListener('click', () => {
-    mobileMenu.classList.toggle('hidden');
-});
-
-// Particles Background
-particlesJS('particles-container', {
-    particles: {
-        number: {
-            value: 80,
-            density: {
-                enable: true,
-                value_area: 800
+// Loading Animation
+const loading = {
+    screen: document.querySelector('.loading-screen'),
+    init: function() {
+        gsap.to(this.screen, {
+            opacity: 0,
+            duration: 1,
+            delay: 2,
+            onComplete: () => {
+                this.screen.style.display = 'none';
+                this.animateHero();
             }
-        },
-        color: {
-            value: '#ffffff'
-        },
-        shape: {
-            type: 'circle'
-        },
-        opacity: {
-            value: 0.5,
-            random: false
-        },
-        size: {
-            value: 3,
-            random: true
-        },
-        line_linked: {
-            enable: true,
-            distance: 150,
-            color: '#ffffff',
-            opacity: 0.4,
-            width: 1
-        },
-        move: {
-            enable: true,
-            speed: 6,
-            direction: 'none',
-            random: false,
-            straight: false,
-            out_mode: 'out',
-            bounce: false
-        }
+        });
     },
-    interactivity: {
-        detect_on: 'canvas',
-        events: {
-            onhover: {
-                enable: true,
-                mode: 'repulse'
-            },
-            onclick: {
-                enable: true,
-                mode: 'push'
-            },
-            resize: true
-        }
-    },
-    retina_detect: true
-});
+    animateHero: function() {
+        const tl = gsap.timeline();
+        tl.to('.hero-title', {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            delay: 0.5
+        })
+        .to('.hero-subtitle', {
+            opacity: 1,
+            y: 0,
+            duration: 1
+        }, '-=0.5');
+    }
+};
 
 // Scroll Animations
-const scrollElements = document.querySelectorAll('.fade-in');
+const scrollAnimations = {
+    init: function() {
+        // Section titles
+        gsap.utils.toArray('.section-title').forEach(title => {
+            gsap.to(title, {
+                scrollTrigger: {
+                    trigger: title,
+                    start: 'top 80%',
+                    end: 'bottom 20%',
+                    toggleActions: 'play none none reverse'
+                },
+                opacity: 1,
+                y: 0,
+                duration: 1
+            });
+        });
 
-const elementInView = (el, percentageScroll = 100) => {
-    const elementTop = el.getBoundingClientRect().top;
-    return (
-        elementTop <= 
-        ((window.innerHeight || document.documentElement.clientHeight) * (percentageScroll/100))
-    );
+        // Timeline items
+        gsap.utils.toArray('.timeline-item').forEach(item => {
+            gsap.to(item, {
+                scrollTrigger: {
+                    trigger: item,
+                    start: 'top 80%',
+                    end: 'bottom 20%',
+                    toggleActions: 'play none none reverse'
+                },
+                opacity: 1,
+                x: 0,
+                duration: 1
+            });
+        });
+
+        // Project cards
+        gsap.utils.toArray('.project-card').forEach(card => {
+            gsap.to(card, {
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top 80%',
+                    end: 'bottom 20%',
+                    toggleActions: 'play none none reverse'
+                },
+                opacity: 1,
+                y: 0,
+                duration: 1
+            });
+        });
+    }
 };
 
-const displayScrollElement = (element) => {
-    element.classList.add('visible');
-};
+// Three.js Background
+const threeBackground = {
+    init: function() {
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true });
+        
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('hero-canvas').appendChild(renderer.domElement);
 
-const handleScrollAnimation = () => {
-    scrollElements.forEach((el) => {
-        if (elementInView(el, 100)) {
-            displayScrollElement(el);
+        // Create particles
+        const geometry = new THREE.BufferGeometry();
+        const vertices = [];
+        
+        for (let i = 0; i < 5000; i++) {
+            vertices.push(
+                Math.random() * 2000 - 1000,
+                Math.random() * 2000 - 1000,
+                Math.random() * 2000 - 1000
+            );
         }
-    });
+        
+        geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+        
+        const material = new THREE.PointsMaterial({
+            color: 0xffffff,
+            size: 2,
+            transparent: true
+        });
+        
+        const points = new THREE.Points(geometry, material);
+        scene.add(points);
+        
+        camera.position.z = 1000;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            points.rotation.x += 0.0005;
+            points.rotation.y += 0.0005;
+            renderer.render(scene, camera);
+        }
+        
+        animate();
+
+        // Handle resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    }
 };
 
-window.addEventListener('scroll', () => {
-    handleScrollAnimation();
+// Mobile Menu
+const mobileMenu = {
+    button: document.querySelector('.menu-button'),
+    menu: document.querySelector('.mobile-menu'),
+    links: document.querySelectorAll('.mobile-link'),
+    init: function() {
+        this.button.addEventListener('click', () => {
+            this.toggle();
+        });
+        
+        this.links.forEach(link => {
+            link.addEventListener('click', () => {
+                this.toggle();
+            });
+        });
+    },
+    toggle: function() {
+        this.menu.classList.toggle('active');
+        this.button.classList.toggle('active');
+    }
+};
+
+// Initialize everything
+document.addEventListener('DOMContentLoaded', () => {
+    cursor.init();
+    loading.init();
+    scrollAnimations.init();
+    threeBackground.init();
+    mobileMenu.init();
 });
