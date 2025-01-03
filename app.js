@@ -41,6 +41,22 @@ const cursor = {
     }
 };
 
+// Navigation Scroll Effect
+const navigation = {
+    init: function() {
+        const nav = document.querySelector('nav');
+        if (!nav) return;
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+    }
+};
+
 // Loading Animation
 const loading = {
     screen: document.querySelector('.loading-screen'),
@@ -220,6 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
     scrollAnimations.init();
     threeBackground.init();
     mobileMenu.init();
+    navigation.init();
 });
 
 // Fallback for loading screen in case something goes wrong
