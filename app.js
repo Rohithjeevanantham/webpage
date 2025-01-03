@@ -92,6 +92,16 @@ const loading = {
                 duration: 1
             }, '-=0.5');
         }
+
+        const profileImage = document.querySelector('.profile-image-container');
+        if (profileImage) {
+            tl.from(profileImage, {
+            opacity: 0,
+            scale: 0.8,
+            duration: 1,
+            ease: "back.out(1.7)"
+        }, '-=0.5');
+    }     
     }
 };
 
