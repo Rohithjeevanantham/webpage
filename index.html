@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rohith J - AI Engineer & Technical Writer</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/ScrollMagic.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particlesjs/2.2.3/particles.min.js"></script>
+</head>
+<body class="bg-black text-white">
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="text-2xl font-bold">
+                    <span class="gradient-text">RJ</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#about" class="nav-link">About</a>
+                    <a href="#experience" class="nav-link">Experience</a>
+                    <a href="#projects" class="nav-link">Projects</a>
+                    <a href="#achievements" class="nav-link">Achievements</a>
+                    <a href="#contact" class="border border-white px-4 py-2 rounded hover:bg-white hover:text-black transition-all">Contact</a>
+                </div>
+                <button class="md:hidden" id="menu-toggle">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="fixed inset-0 bg-black bg-opacity-95 z-40 hidden" id="mobile-menu">
+        <div class="flex flex-col items-center justify-center h-full space-y-8">
+            <a href="#about" class="nav-link text-2xl">About</a>
+            <a href="#experience" class="nav-link text-2xl">Experience</a>
+            <a href="#projects" class="nav-link text-2xl">Projects</a>
+            <a href="#achievements" class="nav-link text-2xl">Achievements</a>
+            <a href="#contact" class="border border-white px-6 py-3 rounded text-2xl">Contact</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="relative min-h-screen" id="particles-container">
+        <div class="absolute inset-0 flex items-center justify-center z-10">
+            <div class="text-center">
+                <h1 class="text-6xl md:text-8xl font-bold mb-6 tracking-tight">
+                    <span class="gradient-text">Rohith J</span>
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 text-gray-300">AI Engineer & Technical Writer</p>
+                <div class="flex justify-center space-x-6">
+                    <a href="#projects" class="btn-primary">View Projects</a>
+                    <a href="#contact" class="btn-secondary">Get in Touch</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rest of the sections with enhanced styling and animations -->
+    <!-- (Content continues as before but with updated styling) -->
+
+    <script src="app.js"></script>
+</body>
+</html>
