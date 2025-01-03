@@ -6,6 +6,9 @@ const cursor = {
     dot: document.querySelector('.cursor-dot'),
     outline: document.querySelector('.cursor-outline'),
     init: function() {
+        // Check if elements exist before initializing
+        if (!this.dot || !this.outline) return;
+
         document.addEventListener('mousemove', (e) => {
             gsap.to(this.dot, {
                 x: e.clientX,
@@ -42,29 +45,37 @@ const cursor = {
 const loading = {
     screen: document.querySelector('.loading-screen'),
     init: function() {
-        gsap.to(this.screen, {
-            opacity: 0,
-            duration: 1,
-            delay: 2,
-            onComplete: () => {
+        if (!this.screen) return;
+
+        // Remove loading screen after 2 seconds
+        setTimeout(() => {
+            this.screen.style.opacity = '0';
+            setTimeout(() => {
                 this.screen.style.display = 'none';
                 this.animateHero();
-            }
-        });
+            }, 1000);
+        }, 2000);
     },
     animateHero: function() {
         const tl = gsap.timeline();
-        tl.to('.hero-title', {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-            delay: 0.5
-        })
-        .to('.hero-subtitle', {
-            opacity: 1,
-            y: 0,
-            duration: 1
-        }, '-=0.5');
+        const heroTitle = document.querySelector('.hero-title');
+        const heroSubtitle = document.querySelector('.hero-subtitle');
+
+        if (heroTitle) {
+            tl.to(heroTitle, {
+                opacity: 1,
+                y: 0,
+                duration: 1
+            });
+        }
+
+        if (heroSubtitle) {
+            tl.to(heroSubtitle, {
+                opacity: 1,
+                y: 0,
+                duration: 1
+            }, '-=0.5');
+        }
     }
 };
 
@@ -121,12 +132,18 @@ const scrollAnimations = {
 // Three.js Background
 const threeBackground = {
     init: function() {
+        const container = document.getElementById('hero-canvas');
+        if (!container) return;
+
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ alpha: true });
+        const renderer = new THREE.WebGLRenderer({ 
+            alpha: true,
+            antialias: true
+        });
         
         renderer.setSize(window.innerWidth, window.innerHeight);
-        document.getElementById('hero-canvas').appendChild(renderer.domElement);
+        container.appendChild(renderer.domElement);
 
         // Create particles
         const geometry = new THREE.BufferGeometry();
@@ -177,6 +194,8 @@ const mobileMenu = {
     menu: document.querySelector('.mobile-menu'),
     links: document.querySelectorAll('.mobile-link'),
     init: function() {
+        if (!this.button || !this.menu) return;
+
         this.button.addEventListener('click', () => {
             this.toggle();
         });
@@ -193,11 +212,25 @@ const mobileMenu = {
     }
 };
 
-// Initialize everything
+// Initialize everything when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
+    // Initialize all modules
     cursor.init();
     loading.init();
     scrollAnimations.init();
     threeBackground.init();
     mobileMenu.init();
+});
+
+// Fallback for loading screen in case something goes wrong
+window.addEventListener('load', () => {
+    const loadingScreen = document.querySelector('.loading-screen');
+    if (loadingScreen && loadingScreen.style.display !== 'none') {
+        setTimeout(() => {
+            loadingScreen.style.opacity = '0';
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+            }, 1000);
+        }, 1000);
+    }
 });
