@@ -12,37 +12,34 @@ body {
     cursor: none;
 }
 
-/* Profile Image Styles */
-.profile-image-container {
-    position: relative;
-    width: 400px;
-    height: 400px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
+/* Remove the animation to keep the image static */
 .profile-image-wrapper {
-    position: relative;
+    position: absolute; /* Position image behind the text */
     width: 320px;
     height: 320px;
     border-radius: 50%;
     padding: 8px;
     background: linear-gradient(45deg, var(--accent-color), transparent);
-    animation: borderRotate 10s linear infinite;
+    /* Remove the rotation animation */
+    /* Removed animation */
 }
 
+/* Remove the blur effect */
 .profile-image-wrapper::before {
-    content: '';
-    position: absolute;
-    inset: -10px;
-    border-radius: 50%;
-    background: linear-gradient(45deg, var(--accent-color), transparent);
-    filter: blur(20px);
-    opacity: 0.5;
-    animation: borderRotate 10s linear infinite reverse;
+    display: none; /* Remove this pseudo-element */
 }
 
+/* Position profile image behind text */
+.profile-image-container {
+    position: absolute;  /* Position it relative to the page */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center it */
+    z-index: -1;  /* Place behind other content */
+    opacity: 0.5;  /* Optional: make it semi-transparent for an aesthetic look */
+}
+
+/* Profile Image Style */
 .profile-image {
     width: 100%;
     height: 100%;
@@ -51,14 +48,6 @@ body {
     border: 4px solid var(--background-color);
 }
 
-@keyframes borderRotate {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
-}
 
 /* Media Queries */
 @media (max-width: 768px) {
